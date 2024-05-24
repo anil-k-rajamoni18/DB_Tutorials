@@ -1,0 +1,364 @@
+SESSION-1
+------------------
+-. what is data ? collective information or raw information
+-. how we store the data before databases? physical format(store) --> file systems(NTFS, FAT) --> databases
+	1GB 		- 1024MB 
+	1TB 		- 1024GB 
+	1PB(peta byte) - 1024TB 
+	1EB 		- 1024PB 
+	1ZB 		- 1024EB (64*1024*1024*1024) TB
+	1YB 		- 1024ZB
+-. Different types of data?
+	- Structured
+	- UnStructured 
+	- Semi Structured
+	
+- Evoluation of DBMS .	
+-. What is DBMS?
+-. RDBMS vs NON RDBMS
+-. MYSQL OVERVIEW & INSTALLATION
+
+POPULAR COMMANDS (NOTE: SQL is Case insensitive Language)
+------------------------------------
+=> mysql --vesion
+=> mysql -u root -p 
+=> SHOW DATABASES;
+=> USE DATABASENAME; --> to enable or active db
+=> SHOW TABLES;
+=> DESCRIBE TABLENAME | desc tablename
+
+### DATABASE COMMANDS  ###
+-- creation
+
+	CREATE DATABASE collegedb;
+
+	CREATE DATABASE IF NOT EXISTS collegedb;
+
+-- deletion
+	DROP DATABASE collegedb;
+	DROP DATABASE IF EXISTS collegdb;
+
+-- alter
+	ALTER DATABASE hidb MODIFY NAME  = universitydb;
+	RENAME DATABASE hidb TO universitydb;
+
+	mysqldump
+	mysqladmin 
+	
+### TABLE COMMANDS####
+	
+-- creation 
+	CREATE TABLE IF NOT EXISTS persons_t (
+		person_id INT PRIMARY KEY,
+		person_name VARCHAR(255) NOT NULL,
+		gender CHAR NOT NULL,
+		age INT NOT NULL,
+		savings DOUBLE NOT NULL,
+		address VARCHAR(255)
+	);
+	
+	
+-- insertion for all columns 
+	INSERT INTO persons_t (person_id,person_name,gender,age,savings,address) VALUES (1,'ram singh', 'M', 45,70000.56,'Noida');
+
+	INSERT INTO persons_t VALUES(2,'priya singh', 'F', 35,60000.56,'Delhi');
+
+
+-- multiple row insertion 
+
+	INSERT INTO persons_t VALUES(3,'kumar yadav', 'M', 32,52000.56,'UP'), 
+	(4,'shiva rathode', 'M', 37,90000.56,'MP'),
+	(5,'Lal nayak', 'M', 65,80000.56,'AP');
+
+-- insertion for specific columns 
+	
+	INSERT INTO persons_t (person_id,person_name,gender,age,savings) VALUES (7,'sonia signh', 'F', 25,20000.56);
+
+---------------------------------------
+INSERT INTO persons_t (person_id, person_name, gender, age, savings, address) VALUES
+(1, 'Ravi Kumar', 'M', 30, 50000.00, '123, ABC Street, Mumbai'),
+(2, 'Priya Sharma', 'F', 25, 40000.00, '456, XYZ Road, Delhi'),
+(3, 'Amit Patel', 'M', 35, 75000.00, '789, PQR Avenue, Bangalore'),
+(4, 'Anjali Singh', 'F', 28, 60000.00, '101, LMN Lane, Kolkata'),
+(5, 'Suresh Gupta', 'M', 40, 90000.00, '222, DEF Nagar, Chennai');
+
+INSERT INTO persons_t (person_id, person_name, gender, age, savings, address) VALUES
+(6, 'Neha Singh', 'F', 22, 35000.00, '503, GHI Street, Mumbai'),
+(7, 'Rahul Sharma', 'M', 32, 60000.00, '789, JKL Road, Delhi'),
+(8, 'Shreya Patel', 'F', 27, 45000.00, '456, MNO Avenue, Bangalore'),
+(9, 'Aryan Khan', 'M', 29, 70000.00, '111, PQR Lane, Kolkata'),
+(10, 'Ananya Gupta', 'F', 26, 55000.00, '888, STU Nagar, Chennai'),
+(11, 'Vikram Singh', 'M', 35, 80000.00, '333, VWX Street, Mumbai'),
+(12, 'Pooja Sharma', 'F', 30, 65000.00, '999, YZA Road, Delhi'),
+(13, 'Aditya Patel', 'M', 31, 72000.00, '654, BCD Avenue, Bangalore'),
+(14, 'Riya Sen', 'F', 24, 40000.00, '777, EFG Lane, Kolkata'),
+(15, 'Karan Kapoor', 'M', 33, 85000.00, '222, HIJ Nagar, Chennai');
+
+INSERT INTO persons_t (person_id, person_name, gender, age, savings, address) VALUES
+(16, 'Amita Das', 'F', 29, 48000.00, '432, LMN Street, Mumbai'),
+(17, 'Deepak Sharma', 'M', 37, 78000.00, '567, OPQ Road, Delhi'),
+(18, 'Meera Patel', 'F', 31, 60000.00, '321, RST Avenue, Bangalore'),
+(19, 'Rajesh Khanna', 'M', 45, 95000.00, '444, UVW Lane, Kolkata'),
+(20, 'Sita Gupta', 'F', 28, 52000.00, '555, XYZ Nagar, Chennai'),
+(21, 'Alok Singh', 'M', 38, 85000.00, '666, ABC Street, Mumbai'),
+(22, 'Anjali Tiwari', 'F', 33, 70000.00, '777, DEF Road, Delhi'),
+(23, 'Vivek Patel', 'M', 34, 73000.00, '888, GHI Avenue, Bangalore'),
+(24, 'Manisha Devi', 'F', 27, 55000.00, '999, JKL Lane, Kolkata'),
+(25, 'Rahul Verma', 'M', 32, 80000.00, '111, MNO Nagar, Chennai');
+
+
+### ALTER Commands ###########
+
+-- add new column 
+
+	ALTER TABLE table_name
+	ADD column_name datatype;
+		
+	ALTER TABLE persons_t
+	ADD COLUMN salary DECIMAL;
+
+-- drop the column 
+
+	ALTER TABLE table_name
+	DROP column_name;
+
+	ALTER TABLE persons_t
+	DROP age;
+
+-- modify column data type 
+	ALTER TABLE table_name
+	MODIFY COLUMN column_name datatype;
+	
+	ALTER TABLE persons_t
+	MODIFY COLUMN person_name VARCHAR(55);
+	
+-- change column name 
+	ALTER TABLE persons_t
+	RENAME COLUMN address TO location;
+	
+	
+## CONSTRAINTS ####################
+
+-- NOT NULL :Ensure column have a values, not accept NULL VALUES
+	
+	CREATE TABLE persons_nn (
+		ID int PRIMARY KEY,
+		LastName varchar(255) NOT NULL,
+		FirstName varchar(255) NOT NULL,
+		Age int
+	);
+	
+INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES
+(1, 'Smith', 'John', 30),
+(2, 'Doe', 'Jane', 25),
+(3, 'Johnson', 'David', 40),
+(4, 'Brown', 'Emily', NULL),
+(5, 'Patel', 'Ravi', 35);
+
+INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES (6, 'Gupta', 'Priya', 28);   -- Valid entry
+INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES (7, 'Kumar', '', 33);         -- Valid Entry
+INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES (8, 'Singh', 'Amit', -25);    -- Valid Entry
+INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES (9, NULL, 'Suresh', 40);      -- Invalid: Last name cannot be empty
+INSERT INTO persons_nn (ID, LastName, Age) VALUES (10, 'Sharma', 42);   					-- INvalid FirstName cannot be NULL
+
+INSERT INTO persons_nn (ID, LastName, FirstName VALUES (10, 'Sharma','Sneha');   		    -- Valid
+
+
+
+########## DATATYPES ################
+- String data types 
+===============================
+	- CHAR(size) : 256
+	- VARCHAR(size) : 65536
+	- TEXT 
+		- TINY TEXT 
+		- TEXT 
+		- MEDIUM TEXT 
+		- LARGE TEXT 
+	- BLOB 
+		- TINY BLOB 
+		- BLOB 
+		- MEDIUM BLOB 
+		- LARGE BLOB 
+		
+	- BINARY(size) 
+	- VARBINARY(size) 
+	- ENUM (val1, val2,val3) 
+	
+- Numeric Data Types
+==========================
+	- BIT 
+	- BOOLEAN , BOOL 
+	- INT 
+		-TINT INT 
+		- INT 
+		- MEDIUM INT 
+		- BIG INT 
+	- FLOAT(size,d) or FLOAT(p) : p : 0-24 --> Float() , 25-53 --> Double() 
+	- Double(size,d) 
+	- DECIMAL(size,d) : size : 65, d: 30 
+	
+Date and Time Data Types
+==============================
+	DATE : YYYY-MM-DD
+	DATETIME: YYY-MM-DD hh:mm:ss
+	TIMESTAMP: 
+	TIME: hh:mm:ss
+	YEAR: YYYY 
+	
+	
+
+### CONSTRAINTS ### 
+======================
+### NOT NULL 
+	CREATE TABLE persons_nn (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+	);
+	
+	ALTER TABLE persons_nn
+	MODIFY Age int NOT NULL;
+	
+###  UNQIUE 
+
+- UNIQUE constraint accepts default value as NULL.
+
+
+CREATE TABLE persons_unq (
+    id int PRIMARY KEY,
+    lastname varchar(255) NOT NULL,
+    firstname varchar(255),
+    age int,
+	email VARCHAR(50),
+    CONSTRAINT UC_Person UNIQUE (email)
+);
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES
+(1, 'Kumar', 'Ravi', 35, 'ravi.kumar@example.com'),
+(2, 'Patel', 'Sneha', 28, 'sneha.patel@example.com'),
+(3, 'Sharma', 'Amit', 42, 'amit.sharma@example.com'),
+(4, 'Singh', 'Priya', 30, 'priya.singh@example.com'),
+(5, 'Das', 'Suman', 25, 'suman.das@example.com');
+
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(7, 'Kumar', 'Ram', 37, 'r.kumar@example.com');
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(8, 'Kumar', 'Rakesh', 56, 'r.kumar@example.com');
+
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(9, 'Shiva', 'Rakesh', 45, 'r.kumar@example.com');
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(9, 'kumar', 'Shiva', 45, 'r.kumar@example.com');
+
+
+
+-- 
+
+ALTER TABLE persons_unq
+	ADD CONSTRAINT UC_persons UNIQUE (firstname,email);
+	
+ALTER TABLE persons_unq
+DROP CONSTRAINT UC_persons;
+
+
+
+---------------
+### PRIMARY 
+---------------
+    The PRIMARY KEY constraint uniquely identifies each record in a table.
+
+    Primary keys must contain UNIQUE values, and cannot contain NULL values.
+
+    A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+	
+
+### CHECK 
+------------------
+
+- the default value for check constraint column is NULL 
+
+	CREATE TABLE persons_chq (
+		ID int,
+		LastName varchar(255) NOT NULL,
+		FirstName varchar(255),
+		Age int,
+		CONSTRAINT pk_persons_chq PRIMARY KEY(ID),
+		CONSTRAINT check_age CHECK (Age>=18)
+	);
+	
+INSERT INTO persons_chq (ID, LastName, FirstName, Age) VALUES
+(1, 'Sharma', 'Rahul', 25),
+(2, 'Patel', 'Neha', 30),
+(3, 'Kumar', 'Anita', 22),
+(4, 'Singh', 'Rajesh', 40),
+(5, 'Das', 'Meera', 35);
+
+
+INSERT INTO persons_chq (ID, LastName, FirstName, Age) VALUES
+(6, 'Gupta', 'Amit', 16), -- Age less than 18
+(7, 'Reddy', 'Sunita', 14), -- Age less than 18
+(8, 'Choudhary', 'Vivek', 17); -- Age less than 18
+
+
+### DEFAULT Constraint
+
+CREATE TABLE persons_default (
+    ID int PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age >= 18),
+    City varchar(255) DEFAULT 'Newyork'
+);
+
+INSERT INTO persons_default (ID, LastName, FirstName, Age, City) VALUES
+(1, 'Gupta', 'Amit', 25, 'Mumbai'),
+(2, 'Patel', 'Neha', 30, 'Ahmedabad'),
+(3, 'Kumar', 'Anita', 22, 'Delhi'),
+(4, 'Singh', 'Rajesh', 40, 'Bangalore'),
+(5, 'Das', 'Meera', 35, 'Kolkata');
+
+INSERT INTO persons_default (ID, LastName, FirstName, Age, City) VALUES
+(6, 'Sharma', 'Rahul', 16, 'New Delhi'), -- Age less than 18
+(7, 'Reddy', 'Sunita', 14, 'Hyderabad'), -- Age less than 18
+(8, 'Choudhary', 'Vivek', 17, 'Jaipur'); -- Age less than 18
+
+
+
+CREATE TABLE orders_default (
+    ID int NOT NULL,
+    OrderNumber int NOT NULL,
+    OrderDate DATETIME  DEFAULT CURRENT_TIMESTAMP
+);
+
+
+### AUTO INCREMENT Field
+CREATE TABLE persons_autoinc (
+    Personid int AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (Personid)
+);
+
+
+INSERT INTO persons_autoinc (LastName, FirstName, Age) VALUES
+('Gupta', 'Amit', 25),
+('Patel', 'Neha', 30),
+('Kumar', 'Anita', 22),
+('Singh', 'Rajesh', 40),
+('Das', 'Meera', 35);
+
+ALTER TABLE persons_autoinc AUTO_INCREMENT=101;
+
+INSERT INTO persons_autoinc (LastName, FirstName, Age) VALUES
+('Sharma', 'Rahul', 28),
+('Reddy', 'Sunita', 26),
+('Choudhary', 'Vivek', 33),
+('Verma', 'Priya', 29),
+('Yadav', 'Sneha', 31);

@@ -1,0 +1,367 @@
+
+WHATS JSON
+===========
+[{},{},{}]
+
+	
+- connect to the server.
+	mongosh
+	
+- default port localhost://27017
+
+# connect to mongosh
+mongosh "mongodb+srv://cluster0.mitqgvp.mongodb.net" --apiVersion 1 --username Alien --password AlienDB
+
+
+show dbs
+show collections
+db.collections.drop()
+db.dropDatabase()
+#methods
+==================
+insertOne({})
+insertMany([{},{},{}])
+
+db.collection.find()
+db.collection.find().limit(2)
+db.collection.find().sort({"fieldName":1}) --> ascending order
+db.collection.find().sort({"fieldName":-1}) --> decending order
+db.collection.find().count() 
+db.collection.find({filter}, {operators})
+db.collection.find({"fieldName": "value"})
+db.collection.updateOne({}, {$set: {}})
+db.collection.updateMany({}, {$set: {}})
+db.collection.update({}, {$rename: {}})
+ 
+
+ 
+C(insert) R(find) U(update) D (delete) 
+
+
+
+
+deleteMany()
+deleteOne()
+find()
+findOne()
+
+#Python Methonds
+=============================
+
+insert_one()
+insert_many()
+find()
+find_one()
+update_one()
+update_many()
+replace_one()
+find_one_and_update()
+find_one_and_delete()
+find_one_and_replace()
+count_documents()
+
+
+
+######################################
+
+
+[{_id : 2,name:"AngularJs",fee:13000,tutorName:"Rashmi"},
+ {_id : 3,name:"Java",fee:10000,tutorName:"arvan"}
+ {_id : 4,name:"ReactJs",fee:8000,tutorName:"Rajamoni"},
+ {_id : 5,name:"Flask",fee:6000,tutorName:"AKR"},
+ {_id : 6,name:"Dart",fee:15000,tutorName:"Lavanya"},
+ {_id : 7,name:"Ruby",fee:18000,tutorName:"Rafal"}
+ {_id : 8,name:"Javascript",fee:5000,tutorName:"Rajani"}
+]
+
+
+db.course.insertMany([{_id : 2,name:"AngularJs",fee:13000,tutorName:"Rashmi"},
+ {_id : 3,name:"Java",fee:10000,tutorName:"arvan"},
+ {_id : 4,name:"ReactJs",fee:8000,tutorName:"Rajamoni"},
+ {_id : 5,name:"Flask",fee:6000,tutorName:"AKR"},
+ {_id : 6,name:"Dart",fee:15000,tutorName:"Lavanya"},
+ {_id : 7,name:"Ruby",fee:18000,tutorName:"Rafal"},
+ {_id : 8,name:"Javascript",fee:5000,tutorName:"Rajani"}
+])
+
+
+
+db.course.insertMany([
+ {_id : 10,name:"C",fee:18000,tutorName:"Avinash",skills:["C","C++"]},
+ {_id : 11,name:"web",fee:5000,tutorName:"Ram",skills:["HTML","CSS","WEB"],address:{street1: "502 PO" , street2:"TX",ZIP: 029289}}
+])
+
+db.course.insertMany([{_id : 31,name:"Dart",fee:16000,tutorName:"Naina"},{_id : 32,name:"Dart",fee:15000,tutorName:"Zuriya"}])
+
+db.collection.insertMany([{},{}])
+
+db.collection.find()  
+
+
+db.course.updateOne({tutorName: 'AKR'},
+    {$set: {tutorName: 'Kumar Rajamoni',
+     name: 'Solidty',
+    }}, {upsert: true})
+    
+    
+db.course.update({tutorName: 'Kumar Rajamoni'},
+    {$inc:{
+    fee: 20000
+    }})
+    
+    
+    
+db.course.updateMany({name: 'Dart'},
+    {$set: {fee:1000}}, {upsert: true})
+    
+    
+db.course.remove({name: 'Dart'})
+
+
+db.course.deletOne({name: 'Dart'})
+
+
+
+mongosh --> local db/dbserver
+mongosh "mongodb+srv://cluster0.mitqgvp.mongodb.net/COURSES" --apiVersion 1 --username Alien --password AlienDB
+
+###################################
+
+
+MondoDB USER
+==================
+Alien
+AlienDb
+
+
+
+
+
+IMP:
+=============================
+
+https://www.mongodb.com/
+
+
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+
+
+mongosh "mongodb+srv://cluster0.mitqgvp.mongodb.net/courses" --apiVersion 1 --username Alien --password AlienDB
+
+
+client = pymongo.MongoClient("mongodb+srv://Alien:AlienDB@cluster0.mitqgvp.mongodb.net/?retryWrites=true&w=majority")
+db = client.test
+
+
+
+
+
+
+
+#using python application
+
+DB NAME : userProfiles 
+collections : profile
+
+format for document:
+
+name email passwd (encrpy) hashlib
+
+
+
+
+{"name": "Kumar","email":"kumar@gmail.com","passwd":"Kumar123"},
+{"name": "Rajamoni","email":"Rajamoni@gmail.com","passwd":"Rajamoni123"},
+{"name": "Lavanya","email":"lavanya@yahoo.com","passwd":"lavaya@123"},
+{"name": "rashmi","email":"rashmi@yahoo.com","passwd":"rashmi#123"}
+
+
+
+
+
+SQL 
+===============
+Database 
+Tables (row+columns) 
+
+scheme is fixed 
+
+NOSQL 
+===========
+Database 
+Collections (document + properties) 
+scheme is fexiable.
+
+MongoDB@name#number
+
+
+single document : {"name":value}
+
+mutliple documents: [{},{},{},{}]
+
+
+mongosh "mongodb+srv://cluster0.mitqgvp.mongodb.net/KUMAR" --apiVersion 1 --username Alien --password AlienDB
+
+
+######### INSERTION ###############
+
+use RESTAURANT
+db.foodItems.createIndex({"foodName":1},{ unique: true } );
+db.foodItems.insertMany([
+            {"foodName":"Chicken Burrito", "foodType":"Burrito", "protein":"chicken", "calories":975},
+            {"foodName":"Steak Burrito", "foodType":"Burrito", "protein":"steak", "calories":945},
+            {"foodName":"Carnitas Burrito", "foodType":"Burrito", "protein":"carnitas", "calories":1005},
+            {"foodName":"Barbacoa Burrito", "foodType":"Burrito", "protein":"barbacoa", "calories":965},
+            {"foodName":"Chorizo Burrito", "foodType":"Burrito", "protein":"chorizo", "calories":1095},
+            {"foodName":"Sofritas Burrito", "foodType":"Burrito", "protein":"sofritas", "calories":945},
+            {"foodName":"Chicken Burrito Bowl", "foodType":"Burrito Bowl", "calories":630},
+            {"foodName":"Chicken Bowl", "calories":630},
+            {"foodName":"Steak Burrito Bowl", "foodType":"Burrito Bowl", "calories":600},
+            {"foodName":"Steak Bowl", "calories":600},
+            {"foodName":"Carnitas Burrito Bowl", "foodType":"Burrito Bowl", "calories":660},
+            {"foodName":"Carnitas Bowl", "calories":660},
+            {"foodName":"Barbacoa Burrito Bowl", "foodType":"Burrito Bowl", "calories":620},
+            {"foodName":"Barbacoa Bowl", "calories":620},
+            {"foodName":"Chorizo Burrito Bowl", "foodType":"Burrito Bowl", "calories":750},
+            {"foodName":"Chorizo Bowl", "calories":750},
+            {"foodName":"Sofritas Burrito Bowl", "foodType":"Burrito Bowl", "calories":600},
+            {"foodName":"Sofritas Bowl", "calories":600},
+            {"foodName":"Chicken Corn Tortilla Taco", "foodType":"Taco", "protein":"chicken", "calories":650},
+            {"foodName":"Chicken Flour Tortilla Taco", "foodType":"Taco", "protein":"chicken", "calories":700},
+            {"foodName":"Steak Corn Tortilla Taco", "foodType":"Taco", "protein":"steak", "calories":620},
+            {"foodName":"Steak Flour Tortilla Taco", "foodType":"Taco", "protein":"steak", "calories":670},
+            {"foodName":"Carnitas Corn Tortilla Taco", "foodType":"Taco", "protein":"carnitas", "calories":680},
+            {"foodName":"Carnitas Flour Tortilla Taco", "foodType":"Taco", "protein":"carnitas", "calories":730},
+            {"foodName":"Barbacoa Corn Tortilla Taco", "foodType":"Taco", "protein":"barbacoa", "calories":640},
+            {"foodName":"Barbacoa Flour Tortilla Taco", "foodType":"Taco", "protein":"barbacoa", "calories":690},
+            {"foodName":"Chorizo Corn Tortilla Taco", "foodType":"Taco", "protein":"chorizo", "calories":770},
+            {"foodName":"Chorizo Flour Tortilla Taco", "foodType":"Taco", "protein":"chorizo", "calories":820},
+            {"foodName":"Sofritas Corn Tortilla Taco", "foodType":"Taco", "protein":"sofritas", "calories":620},
+            {"foodName":"Sofritas Flour Tortilla Taco", "foodType":"Taco", "protein":"sofritas", "calories":670},
+            {"foodName":"Chicken Salad", "calories":345,"foodType":"Salad", "sideItem":true, "dressingItem":true },
+            {"foodName":"Steak Salad", "calories":315, "foodType":"Salad", "sideItem":true, "dressingItem":true },
+            {"foodName":"Carnitas Salad", "calories":375, "foodType":"Salad", "sideItem":true, "dressingItem":true },
+            {"foodName":"Barbacoa Salad", "calories":335, "foodType":"Salad", "sideItem":true, "dressingItem":true },
+            {"foodName":"Chorizo Salad", "calories":465, "foodType":"Salad", "sideItem":true, "dressingItem":true },
+	    {"foodName":"Chicken Quesadilla", "calories":610, "foodType":"Quesadilla"},
+            {"foodName":"Steak Quesadilla", "calories":550, "foodType":"Quesadilla"},
+            {"foodName":"Carnitas Quesadilla", "calories":640, "foodType":"Quesadilla"},
+            {"foodName":"Cheese Quesadilla", "calories":430, "foodType":"Quesadilla"},
+            {"foodName":"Kids Chicken Taco", "calories":205},
+            {"foodName":"Kids Steak Taco", "calories":200},
+	    {"foodName":"Chips", "calories":540, "sideItem":true},
+	    {"foodName":"Chips and Salsa", "calories":570, "sideItem":true},
+	    {"foodName":"Chips and Guacamole", "calories":770, "sideItem":true},
+	    {"foodName":"Chips and Queso", "calories":770, "sideItem":true}
+            ])
+
+
+
+### CLS COMMAND ###
+
+db.foodItems.find().sort({foodName:1,calories:-1})
+db.foodItems.find().sort({foodName:-1,calories:-1}).limit(4)
+
+db.foodItems.find().sort({foodName:-1,calories:-1}).skip(1).limit(4)
+
+db.foodItems.find({"foodName":"Steak Quesadilla"})
+db.foodItems.find({"foodType":"Taco"})
+db.foodItems.find({"calories":600})
+db.foodItems.find({"foodType":"Taco"}).sort({"foodName":1}) 
+
+db.foodItems.find({"calories":600},{"foodName":1,_id:0})
+
+db.foodItems.find({"foodType": {$eq:"Taco"}}) 
+db.foodItems.find({"foodType": {$ne:"Taco"}})
+db.foodItems.find({"foodType": {$in:["Taco","Salad"]}}) 
+
+db.foodItems.find({"calories": {$nin:[700,200]}})
+db.foodItems.find({"calories": {$lt:700}})
+
+db.foodItems.find({$and:[{"foodType":{$eq:"Taco"}},{"calories":{$lt:700}}]})
+
+db.foodItems.find({$or:[{"foodType":{$eq:"Taco"}},{"calories":{$lt:700}}]})
+
+
+db.foodItems.find({"foodType" :{$in:["Taco", "Burrito Bowl", "Burrito"]}})
+
+db.foodItems.find({$text: {$search: "Taco"}}, {score: {$meta: "textScore"}}).sort({score: {$meta: "textScore"}})
+
+	db.foodItems.find({foodName: /^B/}) 
+
+db.foodItems.updateOne({"protein": "chicken"}, {$set:{"calories": 550})
+
+db.foodItems.updateMany({"protein": "chicken"}, {$set:{"calories": 666}})
+
+
+
+
+################## MONGO SCHEMA ###############
+
+db.createCollection("stu_coll", {
+   validator: {$jsonSchema: {
+      bsonType: "object",
+      required: ["name","college" ,"age"],
+      properties: {
+         name: {
+            bsonType: "string",
+            description: " `name` must be a string and is required"
+         },
+         college: {
+            bsonType: "string",
+            description: " `collegee` must be a string and is required"
+         },
+         age: {
+            bsonType: "int",
+            description: "`age` must be integer and is required"
+         },
+		 "gpa":{
+			bsonType: "double",
+			description: "`gpa` must be a double"
+		 },
+		 "address":{
+			bsonType: "string",
+			description: "`address` must be a string."
+		 }
+      }
+   }}
+})
+
+
+1. Create a DB with name : AssignDB 
+2. create a collection with schema with following fields
+	id  -- int 
+	title : string 
+	onDate : date 
+	cardColor: enum [blue , green , red, yellow]
+	isCompleted : boolean
+	timestamps: Date 
+	
+{"id" : 1,
+ "title": "Need to complete microservice architecture learning",
+ "onDate" : 06-06-2023,
+ cardColor: "blue",
+ isCompleted: false,
+ timestamps : new Date()
+ }
+ 
+
+3. Write logic for all CRUD 
+	C -- > insert todo task 
+	R ----> read todo task 
+	U ---> update todo task , based on id or title 
+	D ---> delete todo task , based on id or title.
+	
+Python With Mongo : pymongo (module) 
+
+
+PYTHON PYMONGO MODULE  (snake_case)
+==========================
+insert_one()
+insert_many()
+update_one()
+update_many()
+delete_one()
+delete_many()
+find()
+find_one() 

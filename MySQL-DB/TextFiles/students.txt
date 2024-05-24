@@ -1,0 +1,6 @@
+1	kumar	ruby	Y	150.15	India
+2	sravani	mySQL	Y	120.15	USA
+3	manoj	python	N	150.15	\N	
+4	hemanth	R	Y	100.15	India
+5	Radha	.Net	N	160.15	USA
+6	Raj	python	N	300.15	\N

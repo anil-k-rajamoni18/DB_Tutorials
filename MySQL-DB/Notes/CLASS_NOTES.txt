@@ -1,0 +1,1051 @@
+TYPES OF DATA BASE
+==============================
+
+SQL Databases
+	MySQL
+	Oracle
+	PostgreSQL
+	Microsoft Server DB
+	AWS Dynamo DB
+	
+NOSQL Databases
+	MongoDB
+	Redis
+	Cassandra
+	Elastic Search
+	
+	
+
+=> To check version
+ mysql --version
+
+=> Login Command 
+	mysql -u root -p
+	mysql -u root -pPassWord
+
+popular shell commands
+============================
+	show databases;
+	use databasename;
+	show tables;
+	describe table_name;
+
+
+=> CREATE DATABASE databasename;
+=> DROP DATABASE databasename;
+
+
+TYPES OF STATEMENTS 
+===========================
+	1.DDL(Data_Definition_Lang) 			: CREATE , DROP, ALTER, TRUNCATE
+	2.DML (Data_Manipulation_Language) 		: INSERT, UPDATE,DELETE
+	3.DCL(Data_Control_Lang)				: GRANT, REVOKE
+	4.TCL(Transaction_Control_Lang) 		: COMMIT , ROLLBACK 
+	5.DQL(Data_Query_Lang)					: SELECT
+	
+
+=> CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+   ....
+);
+
+	CREATE TABLE student_t (
+		id int,
+		name varchar(25),
+		age int,
+		grade double
+	);
+
+=> INSERT INTO TABLE_NAME VALUES(value1,value2, ... valuen);
+	INSERT INTO student_t VALUES(102,'srikanth',25,3.9);
+
+=> SELECT * FROM TABLE_NAME;
+
+	SELECT * FROM student_t;
+	
+
+DATA TYPES
+=================
+	=> String Data types
+		CHAR(5) [0-255]
+		VARCHAR(10) [0-65535]
+		TINYBLOB
+		BLOB
+		MEDIUMBLOB
+		LARGEBLOB
+		TEXT
+		LONGTEXT
+		
+	=> Numeric Data Types
+		BIT
+		TINYBIT
+		SMALLINT
+		MEDIUMINT
+		INT
+		BIGINT
+		FLOAT(size,d)
+		FLOAT(p)
+		DOUBLE(size,d)
+		
+		
+	=> Date & Time Data Types
+		 DATE : YYYY-MM-DD
+		 DATETIME YYYY-MM-DD hh:mm:ss
+		 TIMESTAMP
+		 TIME : hh:mm:ss
+		 YEAR [ 4 digit]
+
+
+=> create employee table with following columns 
+	id, name, age, salary, dept_name, manager_name, dob, doj, gender (M or F)
+
+
+	create table employee_t(
+		id int,
+		name varchar (25),
+		age int,
+		salary double,
+		depart_name varchar (30),
+		manager_name varchar (20),
+		dob date,
+		doj date,
+		gender CHAR(1)
+	);
+
+
+
+insert into employee_t values (111,'kirthi',24,50000,'hr_manager','santosh','1998-08-06','2022-09-20','f');
+
+
+CREATE TABLE person_t (
+	id int PRIMARY KEY,
+	name varchar(255) NOT NULL,
+	age int
+);
+
+
+DAY3 | CONSTRAINTS
+===================
+1. NOT NULL -> ensures column must have not null value always in new insertion/updation, will fail on null values
+2. UNIQUE -> ensures column must have uniquness, will accept default value as NULL
+3. PRIMARY KEY ->  ensures columns must have UNIQUE and NOT NULL
+4. CHECK 
+5. DEFAULT
+6. AUTO INCREMENT 
+7. FOREIGN KEY 
+
+CREATE TABLE hospital_record (
+id int,
+name varchar (25),
+age int,
+doj date,
+total_bill double,
+department varchar(30),
+doctor_name varchar(20)
+);
+
+INSERT INTO hospital_record VALUES (123, 'sudha',25,'2023-09-08',86000,'cardio','satish_reddy');
+
+
+INSERT INTO hospital_record VALUES (134,'pradeep',26,'2023-07-23',98000,'neuro','harshavardhan');
+
+INSERT INTO hospital_record VALUES (154,'kavya',29,'2022-07-12',29000,'ortho','kirthireddy');
+
+
+CREATE TABLE person_NN_t (
+    id int NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    age int
+);
+
+
+CREATE TABLE person_unique_t (
+    id int NOT NULL,
+    lastname varchar(255) NOT NULL,
+    firstname varchar(255),
+    age int,
+	email varchar(25),
+    CONSTRAINT UC_person UNIQUE(id,email)
+);
+
+-- Example 1
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (1, 'Doe', 'John', 25, 'john.doe@example.com');
+
+-- Example 2
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (2, 'Smith', 'Jane', 30, 'jane.smith@example.com');
+
+-- Example 3
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (3, 'Johnson', 'Alice', 22, 'alice.johnson@example.com');
+
+-- Example 4
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (3, 'Brown', 'David', 28, 'david.brown@example.com');
+
+-- Example 5
+INSERT INTO person_unique_t (id, lastname, firstname)
+VALUES (5, 'Taylor', 'Emma');
+
+-- Example 6
+INSERT INTO person_unique_t (id, lastname, firstname, age)
+VALUES (6, 'Anderson', 'Michael', 35);
+
+-- Example 7
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (7, 'Williams', 'Olivia', 27, 'olivia.williams@example.com');
+
+3-alice.johnson@example.com-25 != 3-david.brown@example.com-25
+
+
+-----------------------
+
+CREATE TABLE person_primary_t (
+    ID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
+);
+
+-- Example 1
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (1, 'Doe', 'John', 25);
+
+-- Example 2
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (2, 'Smith', 'Jane', 30);
+
+-- Example 3
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (3, 'Johnson', 'Alice', 22);
+
+
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (4, 'Johnson', 'Alice', 22);
+
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (4, 'Kumar', 'Alice', 22);
+
+INSERT INTO person_primary_t (ID, FirstName, Age)
+VALUES (5, 'srikanth', 22);
+
+
+INSERT into person_primary_t (ID, LastName, FirstName, Age) 
+VALUES (1, 'Doe', 'John', 25) , (2, 'Smith', 'Jane', 30) , (3, 'Johnson', 'Alice', 22);
+
+
+CHECK
+---------------------
+CREATE TABLE person_check_t (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+
+-- Inserting a person with all information
+INSERT INTO person_check_t (ID, LastName, FirstName, Age) VALUES (1, 'Doe', 'John', 25);
+
+-- Inserting a person without specifying FirstName
+INSERT INTO person_check_t (ID, LastName, Age) VALUES (2, 'Smith', 30);
+
+-- Inserting a person with only mandatory fields (ID and LastName)
+INSERT INTO person_check_t (ID, LastName) VALUES (3, 'Johnson');
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_check_t (ID, LastName, Age) VALUES (4, 'Youngster', 15);
+
+
+DEFAULT
+==================
+CREATE TABLE person_default_t (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Hyd'
+);
+
+-- Inserting a person with all information
+INSERT INTO person_default_t (ID, LastName, FirstName, Age, City) VALUES (1, 'Doe', 'John', 25, 'New York');
+
+-- Inserting a person without specifying FirstName and Age (Age will default to NULL, City will default to 'Hyd')
+INSERT INTO person_default_t (ID, LastName) VALUES (2, 'Smith');
+
+-- Inserting a person with only mandatory fields (ID and LastName), specifying City
+INSERT INTO person_default_t (ID, LastName, City) VALUES (3, 'Johnson', 'London');
+
+-- Inserting a person without specifying City (City will default to 'Hyd')
+INSERT INTO person_default_t (ID, LastName, FirstName, Age) VALUES (4, 'Youngster', 'Bob', 30);
+
+-- Inserting a person with all information, explicitly specifying default value for City
+INSERT INTO person_default_t (ID, LastName, FirstName, Age, City) VALUES (5, 'Williams', 'Alice', 28, DEFAULT);
+
+
+AUTO INCREMENT
+=================
+
+CREATE TABLE person_autoinc_t (
+    Personid int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK(Age>=18),
+    PRIMARY KEY (Personid)
+);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Doe', 'John', 25);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Smith');
+
+-- Inserting a person with only mandatory fields (LastName), specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Johnson', 'Alice', 30);
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_autoinc_t (LastName, Age) VALUES ('Youngster', 15);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Williams', 'Alice', 28);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Brown');
+
+-- Inserting a person with only mandatory fields (LastName), specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Johnson', 'Bob', 40);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Davis', 'Emily', 22);
+
+-- Inserting a person without specifying Age (Age will default to NULL)
+INSERT INTO person_autoinc_t (LastName, FirstName) VALUES ('Smith', 'Sam');
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Miller', 'David', 35);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Taylor');
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_autoinc_t (LastName, Age) VALUES ('Youngster', 15);
+
+
+
+FOREIGN  KEY
+=====================
+create person table with following fields 
+	id,lastname,firstname,age 
+
+CREATE TABLE person_fk_t (
+	PersonID int NOT NULL,
+	lastname varchar (255) NOT NULL,
+	Firstname varchar(255),
+	age int,
+	PRIMARY KEY (PersonID),
+	CHECK (AGE>10)
+);
+
+CREATE TABLE orders_fk_t (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES person_fk_t(PersonID)
+);
+
+
+-- Inserting data into person_fk_t table
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (1, 'Doe', 'John', 25);
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (2, 'Smith', 'Alice', 30);
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (3, 'Johnson', 'Bob', 40);
+
+-- Attempting to insert a person under 10 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (4, 'Youngster', 'Sam', 5);
+
+-- Inserting data into orders_fk_t table
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (101, 1001, 1);
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (102, 1002, 2);
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (103, 1003, 3);
+
+-- Attempting to insert an order with a non-existing PersonID (will violate FOREIGN KEY constraint)
+-- This query will result in an error
+-- INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (104, 1004, 4);
+
+
+select person_fk_t.personid, person_fk_t.firstname,orders_fk_t.orderid,orders_fk_t.ordernumber from 
+	person_fk_t, 
+	orders_fk_t 
+	where person_fk_t.personid = 2;
+	
+	
+################# ASSIGNMENT ########################
+
+CREATE TABLE salesman (
+SALESMAN_ID NUMERIC(5) NOT NULL,
+NAME VARCHAR(30) NOT NULL,
+CITY VARCHAR(30) NOT NULL,
+COMMISSION DECIMAL(5,2) NOT NULL,
+PRIMARY KEY (SALESMAN_ID)
+);
+
+CREATE TABLE customers (
+CUSTOMER_ID NUMERIC(5) NOT NULL,
+CUST_NAME VARCHAR(30) NOT NULL,
+CITY VARCHAR(15),
+GRADE NUMERIC(3),
+SALESMAN_ID NUMERIC(5) NOT NULL,
+PRIMARY KEY(CUSTOMER_ID),
+FOREIGN KEY(SALESMAN_ID) REFERENCES salesman(SALESMAN_ID)
+);
+
+CREATE TABLE orders (
+ORD_NO NUMERIC(5) NOT NULL,
+PURCH_AMT DECIMAL(8,2) NOT NULL,
+ORD_DATE DATE NOT NULL,
+CUSTOMER_ID NUMERIC(5) NOT NULL,
+SALESMAN_ID NUMERIC(5) NOT NULL,
+PRIMARY KEY (ORD_NO),
+FOREIGN KEY (CUSTOMER_ID) REFERENCES customers(CUSTOMER_ID),
+FOREIGN KEY (SALESMAN_ID) REFERENCES salesman(SALESMAN_ID)
+);
+
+
+
+-- Inserting values into salesman table
+INSERT INTO salesman (SALESMAN_ID, NAME, CITY, COMMISSION)
+VALUES 
+  (1, 'John Doe', 'New York', 0.05),
+  (2, 'Jane Smith', 'Los Angeles', 0.08),
+  (3, 'Bob Johnson', 'Chicago', 0.07),
+  (4, 'Alice Brown', 'Houston', 0.06),
+  (5, 'Charlie White', 'Miami', 0.09);
+
+-- Inserting values into customers table
+INSERT INTO customers (CUSTOMER_ID, CUST_NAME, CITY, GRADE, SALESMAN_ID)
+VALUES 
+  (101, 'Customer1', 'City1', 1, 1),
+  (102, 'Customer2', 'City2', 2, 2),
+  (103, 'Customer3', 'City3', 1, 3),
+  (104, 'Customer4', 'City4', 2, 4),
+  (105, 'Customer5', 'City5', 3, 5);
+
+-- Inserting values into orders table
+INSERT INTO orders (ORD_NO, PURCH_AMT, ORD_DATE, CUSTOMER_ID, SALESMAN_ID)
+VALUES 
+  (1, 100.50, '2024-01-28', 101, 1),
+  (2, 200.75, '2024-01-29', 102, 2),
+  (3, 150.20, '2024-01-30', 103, 3),
+  (4, 300.90, '2024-01-31', 104, 4),
+  (5, 250.60, '2024-02-01', 105, 5);
+
+############################################
+
+CREATE TABLE department(
+		DEPT_ID INT NOT NULL,
+		DEPT_NAME VARCHAR(30) NOT NULL,
+		LOCATION VARCHAR(30) NOT NULL,
+		PRIMARY KEY(DEPT_ID)
+);
+
+CREATE TABLE course(
+	COURSE_ID INT NOT NULL,
+	COURSE_NAME VARCHAR(30) NOT NULL,
+	COURSE_DURATION INT NOT NULL,
+	COURSE_FEE DOUBLE NOT NULL,
+	PRIMARY KEY(COURSE_ID)
+);
+
+CREATE TABLE student(
+	ID INT NOT NULL,
+	NAME VARCHAR(50) NOT NULL,
+	SECTION CHAR(1) NOT NULL,
+	DEPT_ID INT NOT NULL,
+	COURSE_ID INT NOT NULL,
+	PRIMARY KEY(ID),
+	FOREIGN KEY(DEPT_ID) REFERENCES department(DEPT_ID),
+	FOREIGN KEY(COURSE_ID) REFERENCES course(COURSE_ID)
+);
+
+-- Inserting values into department table
+INSERT INTO department (DEPT_ID, DEPT_NAME, LOCATION)
+VALUES 
+  (1, 'Computer Science', 'Building A, Room 101'),
+  (2, 'Electrical Engineering', 'Building B, Room 202'),
+  (3, 'Mechanical Engineering', 'Building C, Room 303'),
+  (4, 'Mathematics', 'Building D, Room 404'),
+  (5, 'Physics', 'Building E, Room 505');
+
+-- Inserting values into course table
+INSERT INTO course (COURSE_ID, COURSE_NAME, COURSE_DURATION, COURSE_FEE)
+VALUES 
+  (101, 'Introduction to Programming', 10, 500.00),
+  (102, 'Digital Circuits', 12, 600.00),
+  (103, 'Mechanics and Dynamics', 15, 700.00),
+  (104, 'Calculus I', 8, 400.00),
+  (105, 'Classical Mechanics', 14, 800.00);
+
+-- Inserting values into student table
+INSERT INTO student (ID, NAME, SECTION, DEPT_ID, COURSE_ID)
+VALUES 
+  (201, 'John Smith', 'A', 1, 101),
+  (202, 'Jane Doe', 'B', 2, 102),
+  (203, 'Bob Johnson', 'A', 3, 103),
+  (204, 'Alice Brown', 'B', 4, 104),
+  (205, 'Charlie White', 'A', 5, 105);
+
+
+############################# SELECT #####################
+
+- SELECT column1, column2 FROM TABLE;
+
+- SELECT * FROM TABLE;
+
+- SELECT DISTINCT(column_name) FROM TABLE_NAME;
+
+- SELECT COUNT(*) FROM TABLE;
+
+- SELECT * FROM TABLE LIMIT NUMBER;
+
+==> CONDITIONS 
+
+SELECT * FROM TABLE WHERE CONDITION;
+
+==> ORDER BY
+SELECT * FROM TABLE WHERE CONDITION ORDER BY ASC | DESC;
+
+==> SQL AGGREGATE FUNCTIONS
+	MIN()
+	MAX()
+	COUNT()
+	AVG()
+	SUM()
+	UPPER()
+	LOWER()
+	GROUP BY clause
+	HAVING clause
+	
+	
+	
+GROUP BY 
+=============================
+In SQL, The Group By statement is used for organizing similar data into groups. The data is further organized with the help of equivalent function. It means, if different rows in a precise column have the same values, it will arrange those rows in a group.
+
+=> CREATE A TABLE WITH following 
+ID,NAME,GENDER,DEPT_NAME,AGE,CITY,SALARY 
+
+CREATE TABLE emp_t(
+	ID INT PRIMARY KEY,
+	NAME VARCHAR(50) NOT NULL,
+	GENDER CHAR(1) NOT NULL,
+	DEPT_NAME VARCHAR(50) NOT NULL,
+	AGE INT NOT NULL,
+	CITY VARCHAR(10) NOT NULL,
+	SALARY DOUBLE NOT NULL
+);
+
+
+-- Example 1
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (1, 'John Doe', 'M', 'IT', 30, 'New York', 80000.00) , 
+(2, 'Jane Smith', 'F', 'HR', 35, 'Los Angeles', 75000.00),
+(3, 'Bob Johnson', 'M', 'Finance', 40, 'Chicago', 90000.00);
+
+-- Add more INSERT statements as needed
+-- Example 2
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (4, 'Alice Brown', 'F', 'Marketing', 28, 'San Francisco', 70000.00),
+(5, 'Charlie Wilson', 'M', 'Sales', 32, 'Houston', 85000.00),
+(6, 'Eva Martinez', 'F', 'IT', 29, 'Miami', 82000.00);
+
+-- Example 3
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (7, 'David Miller', 'M', 'Engineering', 38, 'Seattle', 95000.00),
+(8, 'Sophia Lee', 'F', 'Finance', 33, 'Boston', 88000.00),
+(9, 'Michael Chen', 'M', 'Marketing', 31, 'Atlanta', 78000.00)
+;
+
+
+-- Example 4
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (16, 'Shiva', 'M', 'Sales', 27, 'Dallas', 72000.00),
+(14, 'Manoj', 'M', 'Engineering', 36, 'San Diego', 92000.00),
+(15, 'Srikanth', 'F', 'IT', 25, 'Denver', 78000.00);
+
+
+ALTER TABLE emp_t MODIFY COLUMN CITY VARCHAR(30);
+
+QUESTIONS:
+====================
+
+1.Display name,dept_name,salary from employee
+2.Dislay employees count belongs to male gender
+3.Display employees belongs to IT department and gender Male 
+4.Display all employees whos city starts with S OR C
+5.Display the unqiue dept_names in emp_t table;
+6.Display the employees department wise count;
+7.Display the employee average salary on department wise;
+8.Display the employees total salary on departwise;
+9.Display the employees based on age wise
+10.Display the employees based on department & gender
+11.Display the employee(s) who salary is having highest salary earned by all employees.
+	- find highest salary from table 
+	- filter the empolyees based on input from first query 
+	
+
+ANSWERS 
+-------------
+1. SELECT name,dept_name,salary FROM emp_t;
+2. SELECT COUNT(*) as male_emp_count FROM emp_t WHERE gender='M';
+3.SELECT * from emp_t where dept_name='it' AND gender='M';
+4.SELECT * FROM emp_t WHERE city LIKE 'S%' OR city LIKE 'C%';
+5.SELECT DISTINCT (dept_name) FROM emp_t;
+6.SELECT Dept_Name, COUNT(*) AS employeecount FROM emp_t GROUP BY dept_name;
+7.SELECT AVG(salary),Dept_Name FROM emp_t GROUP BY Dept_Name;
+8.SELECT SUM(salary), Dept_Name FROM emp_t GROUP BY Dept_Name;
+9. SELECT age, count(*) emp_count from emp_t group by age;
+10. SELECT dept_name, gender, count(*) as emp_count from emp_t group by dept_name, gender order by dept_name ASC;
+11.select * from emp_t where salary In (select max(salary) from emp_t);
+
+
+ADVANCE SQL 
+- JOINS 
+- SUB QUERIES 
+- WINDOW FUNCTIONS
+- INDEXES
+- VIEW 
+- FUNCTIONS
+- STORED PROCEDURED & TRIGGERS 
+
+JOINS
+==============
+CREATE TABLE department(
+	dep_id INTEGER,
+	dep_name VARCHAR(20) NOT NULL,
+	dep_location VARCHAR(15) NOT NULL,
+	PRIMARY KEY(dep_id)
+);
+
+CREATE TABLE managers(
+	managerId INTEGER,
+	name VARCHAR(30) NOT NULL,
+	location VARCHAR(30) NOT NULL,
+	workExperience TINYINT NOT NULL,
+	PRIMARY KEY(managerId)
+);
+CREATE TABLE employees (
+	empId INTEGER,
+	empName VARCHAR(30) NOT NULL,
+	jobName VARCHAR(30) NOT NULL,
+	hireDate DATE NOT NULL,
+	dob DATE NOT NULL,
+	salary DECIMAL(10,2) NOT NULL,
+	depId INTEGER NOT NULL,
+	managerId INTEGER NOT NULL,
+	PRIMARY KEY(empId),
+	FOREIGN KEY(depId) REFERENCES department(dep_id),
+	FOREIGN KEY(managerId) REFERENCES managers(managerId)
+);
+
+-------------------------
+-- Insert data into the 'department' table
+INSERT INTO department(dep_id, dep_name, dep_location) VALUES
+(1, 'Sales', 'Mumbai'),
+(2, 'Finance', 'Delhi'),
+(3, 'IT', 'Bangalore'),
+(4, 'Human Resources', 'Chennai');
+
+-- Insert data into the 'managers' table
+INSERT INTO managers(managerId, name, location, workExperience) VALUES
+(101, 'John Doe', 'Mumbai', 10),
+(102, 'Jane Smith', 'Delhi', 8),
+(103, 'Bob Johnson', 'Bangalore', 12),
+(104, 'Alice Williams', 'Chennai', 6);
+
+-- Insert data into the 'employees' table
+INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+(1001, 'Mike Anderson', 'Sales Executive', '2023-01-15', '1990-05-20', 50000.00, 1, 101),
+(1002, 'Lisa Patel', 'Financial Analyst', '2022-08-22', '1985-12-10', 60000.00, 2, 102),
+(1003, 'Raj Kumar', 'Software Engineer', '2021-05-10', '1995-03-25', 75000.00, 3, 103),
+(1004, 'Sara Gupta', 'HR Specialist', '2023-03-08', '1988-09-18', 55000.00, 4, 104),
+(1005, 'Amit Singh', 'Sales Manager', '2022-11-30', '1983-07-12', 80000.00, 1, 101);
+
+
+-- Insert more data into the 'department' table
+INSERT INTO department(dep_id, dep_name, dep_location) VALUES
+(5, 'Marketing', 'Kolkata'),
+(6, 'Research and Development', 'Hyderabad'),
+(7, 'Customer Support', 'Pune'),
+(8, 'Production', 'Ahmedabad');
+
+-- Insert more data into the 'managers' table
+INSERT INTO managers(managerId, name, location, workExperience) VALUES
+(105, 'Chris Wilson', 'Kolkata', 9),
+(106, 'Emily Lee', 'Hyderabad', 11),
+(107, 'David Brown', 'Pune', 7),
+(108, 'Sophia Gupta', 'Ahmedabad', 10);
+
+-- Insert more data into the 'employees' table
+INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+(1006, 'Priya Sharma', 'Marketing Specialist', '2022-04-18', '1992-08-05', 58000.00, 5, 105),
+(1007, 'Rahul Kapoor', 'R&D Scientist', '2021-09-25', '1993-11-15', 70000.00, 6, 106),
+(1008, 'Anjali Desai', 'Customer Support Rep', '2023-02-12', '1991-06-30', 52000.00, 7, 107),
+(1009, 'Vikram Patel', 'Production Technician', '2022-06-08', '1987-04-22', 65000.00, 8, 108),
+(1010, 'Shreya Singh', 'Marketing Manager', '2021-12-05', '1984-02-10', 82000.00, 5, 105);
+
+
+-- Insert more data into the 'department' table
+INSERT INTO department(dep_id, dep_name, dep_location) VALUES
+(9, 'Legal', 'Chandigarh'),
+(10, 'Quality Assurance', 'Jaipur'),
+(11, 'Information Security', 'Noida'),
+(12, 'Supply Chain', 'Gurgaon');
+
+-- Insert more data into the 'managers' table
+INSERT INTO managers(managerId, name, location, workExperience) VALUES
+(109, 'Laura Williams', 'Chandigarh', 8),
+(110, 'Michael Gupta', 'Jaipur', 10),
+(111, 'Aisha Malik', 'Noida', 9),
+(112, 'Rajiv Verma', 'Gurgaon', 11);
+
+-- Insert more data into the 'employees' table
+INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+(1011, 'Karan Sharma', 'Legal Advisor', '2022-03-20', '1989-07-18', 67000.00, 9, 109),
+(1012, 'Neha Verma', 'QA Tester', '2021-10-15', '1994-04-12', 54000.00, 10, 110),
+(1013, 'Rakesh Kapoor', 'Security Analyst', '2023-01-28', '1990-12-05', 72000.00, 11, 111),
+(1014, 'Anita Singh', 'Supply Chain Manager', '2022-07-10', '1986-09-30', 78000.00, 12, 112),
+(1015, 'Rohan Malik', 'Legal Consultant', '2021-11-08', '1983-05-22', 60000.00, 9, 109);
+
+
+
+
+JOINS
+========================
+
+EXAMPLE-1: 
+
+SELECT e.empId, e.empname, e.jobname, m.managerId, m.name 
+	FROM employees e
+	JOIN managers m
+	ON e.managerid = m.managerid
+	WHERE m. workExperience >= 10 AND e.empName LIKE 'A%' OR e.empName LIKE 'S%';
+	ORDER BY m.name DESC;
+	WHERE m.name LIKE 'S%' OR m.name LIKE 'M%';
+--------------------------------------------------------	
+ EXAMPLE-2: 
+ 
+ SELECT * FROM members m  -- table 1
+ INNER JOIN committees c -- table 2
+ ON m.member_id = c.name; -- join condition
+ 
+
+--------------------------------------------------------
+EXAMPLE-3: 
+ SELECT m.member_id, m.name, c.name AS committe_name FROM members m 
+ INNER JOIN committees c
+ ON m.member_id = c.committee_id;
+ 
+ --------------------------------------------------------
+ EXAMPLE-4: 
+ SELECT m.member_id, m.name, c.name AS committe_name FROM members m 
+ INNER JOIN committees c
+ ON m.member_id = c.committee_id
+ WHERE m.name LIKE 'J%';
+ 
+--------------------------------------------------------
+EXAMPLE-5: 
+ 
+ SELECT 
+    productCode, 
+    productName, 
+    textDescription
+FROM
+    products t1
+INNER JOIN productlines t2 
+    ON t1.productline = t2.productline;
+
+--------------------------------------------------------
+EXAMPLE-6: 
+
+SELECT 
+    productCode, 
+    productName, 
+    textDescription
+FROM
+    products
+INNER JOIN productlines USING (productline) LIMIT 5;
+
+--------------------------------------------------------
+EXAMPLE-7: 
+
+SELECT 
+    t1.orderNumber,
+    t1.status,
+    t2.quantityOrdered,
+	t2.priceEach
+FROM
+    orders t1
+INNER JOIN orderdetails t2 
+    ON t1.orderNumber = t2.orderNumber
+	
+LIMIT 20;
+
+
+SELECT 
+    t1.orderNumber,
+    t1.status,
+    SUM(quantityOrdered * priceEach) total
+FROM
+    orders t1
+INNER JOIN orderdetails t2 
+    ON t1.orderNumber = t2.orderNumber
+GROUP BY orderNumber;
+
+=-------------------------------------
+EXAMPLE-8: 
+
+SELECT * FROM members m 
+ INNER JOIN committees c
+ ON m.member_id = c.committee_id;
+
+ SELECT * FROM members m 
+ LEFT JOIN committees c
+ ON m.member_id = c.committee_id;
+ 
+ SELECT * FROM members m 
+ RIGHT JOIN committees c
+ ON m.member_id = c.committee_id;
+ 
+ 
+ SELECT * FROM members m 
+ CROSS JOIN committees c
+ ON m.member_id = c.committee_id;
+ 
+  SELECT m.name FROM members m 
+ LEFT JOIN committees c
+ ON m.member_id = c.committee_id
+ WHERE c.committee_id IS NULL;
+ 
+ 
+ 
+ INNER JOINS EXAMPLES 
+ ======================
+SELECT 
+    o.orderNumber,
+    o.orderDate,
+    od.orderLineNumber,
+    od.quantityOrdered ,
+    od.priceEach,
+	od.productcode
+FROM
+    orders o
+INNER JOIN orderdetails od 
+	ON o.orderNumber = od.orderNumber
+ORDER BY 
+    o.orderNumber, 
+    od.orderLineNumber 
+LIMIT 50;
+
+--------
+
+SELECT 
+    o.orderNumber,
+    o.orderDate,
+    od.orderLineNumber,
+    p.productName,
+    od.quantityOrdered,
+    od.priceEach
+FROM
+    orders o
+INNER JOIN orderdetails od
+	ON o.orderNumber = od.ordernumber
+INNER JOIN products p 
+	ON p.productCode = od.productCode
+ORDER BY 
+    o.orderNumber, 
+    od.orderLineNumber
+	
+LIMIT 20;
+
+SELECT 
+    orderNumber, 
+    customerNumber, 
+    productCode
+FROM
+    orders
+LEFT JOIN orderDetails 
+    USING (orderNumber);
+	
+#############################  
+CROSS JOIN 
+##############################
+
+CREATE DATABASE IF NOT EXISTS salesdb;
+
+USE salesdb;
+
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100),
+    price DECIMAL(13,2 )
+);
+
+CREATE TABLE stores (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    store_name VARCHAR(100)
+);
+
+CREATE TABLE sales (
+    product_id INT,
+    store_id INT,
+    quantity DECIMAL(13 , 2 ) NOT NULL,
+    sales_date DATE NOT NULL,
+    PRIMARY KEY (product_id , store_id),
+    FOREIGN KEY (product_id)
+        REFERENCES products (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (store_id)
+        REFERENCES stores (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+INSERT INTO products(product_name, price)
+VALUES('iPhone', 699),
+      ('iPad',599),
+      ('Macbook Pro',1299);
+
+INSERT INTO stores(store_name)
+VALUES('North'),
+      ('South');
+
+INSERT INTO sales(store_id,product_id,quantity,sales_date)
+VALUES(1,1,20,'2017-01-02'),
+      (1,2,15,'2017-01-05'),
+      (1,3,25,'2017-01-05'),
+      (2,1,30,'2017-01-02'),
+      (2,2,35,'2017-01-05');
+	 
+	 
+######################################
+			SUB - QUERIES
+#########################################
+
+CREATE TABLE department(
+	depid INTEGER,
+	deptname VARCHAR(20) NOT NULL,
+	location VARCHAR(15) NOT NULL,
+	PRIMARY KEY(dep_id)
+);
+
+
+CREATE TABLE employees (
+	empId INTEGER,
+	empName VARCHAR(30) NOT NULL,
+	jobName VARCHAR(30) NOT NULL,
+	deptname VARCHAR(30) NOT NULL,
+	salary double NOT NULL
+);
+
+-- INSERT queries for department table
+INSERT INTO department (depid, deptname, location) VALUES 
+(1, 'Sales', 'Mumbai'),
+(2, 'Human Resources', 'Delhi'),
+(3, 'Finance', 'Bangalore'),
+(4, 'Marketing', 'Chennai'),
+(5, 'Operations', 'Hyderabad'),
+(6, 'IT', 'Pune'),
+(7, 'Research and Development', 'Kolkata'),
+(8, 'Customer Service', 'Ahmedabad');
+
+-- INSERT queries for employees table
+INSERT INTO employees (empId, empName, jobName, deptname, salary) VALUES
+(101, 'Amit Patel', 'Sales Executive', 'Sales', 55000),
+(102, 'Priya Sharma', 'HR Manager', 'Human Resources', 70000),
+(103, 'Rahul Gupta', 'Financial Analyst', 'Finance', 60000),
+(104, 'Neha Singh', 'Marketing Specialist', 'Marketing', 58000),
+(105, 'Suresh Kumar', 'Operations Manager', 'Operations', 75000),
+(106, 'Anjali Verma', 'Sales Associate', 'Sales', 50000),
+(107, 'Rajesh Tiwari', 'HR Executive', 'Human Resources', 48000),
+(108, 'Preeti Reddy', 'Accountant', 'Finance', 55000),
+(109, 'Manoj Kumar', 'Marketing Coordinator', 'Marketing', 53000),
+(110, 'Deepak Sharma', 'Operations Executive', 'Operations', 48000),
+(111, 'Arun Kumar', 'Software Engineer', 'IT', 65000),
+(112, 'Shalini Gupta', 'Research Analyst', 'Research and Development', 60000),
+(113, 'Vinod Patel', 'Customer Support Executive', 'Customer Service', 48000),
+(114, 'Neha Verma', 'Systems Analyst', 'IT', 70000),
+(115, 'Ravi Singh', 'R&D Manager', 'Research and Development', 75000),
+(116, 'Anita Reddy', 'Customer Service Representative', 'Customer Service', 50000),
+(117, 'Alok Mishra', 'Software Developer', 'IT', 62000),
+(118, 'Sneha Shah', 'Research Scientist', 'Research and Development', 68000),
+(119, 'Rajesh Kumar', 'Customer Care Manager', 'Customer Service', 70000),
+(120, 'Pooja Gupta', 'IT Support Specialist', 'IT', 55000),
+(121, 'Sanjay Singh', 'Software Engineer', 'IT', 67000),
+(122, 'Ritu Sharma', 'Research Assistant', 'Research and Development', 55000),
+(123, 'Amit Kumar', 'Customer Relationship Executive', 'Customer Service', 49000),
+(124, 'Meera Reddy', 'Database Administrator', 'IT', 72000),
+(125, 'Rajesh Sharma', 'Research Associate', 'Research and Development', 62000),
+(126, 'Priya Patel', 'Customer Service Supervisor', 'Customer Service', 52000),
+(127, 'Aakash Verma', 'Software Tester', 'IT', 60000),
+(128, 'Neha Mishra', 'Research Coordinator', 'Research and Development', 65000),
+(129, 'Vijay Singh', 'Customer Support Specialist', 'Customer Service', 53000),
+(130, 'Aarti Gupta', 'IT Analyst', 'IT', 58000);
+
+
+
+
+## TYPES 
+1 .Scalary SubQuery  always returns -->  single row & single col
+2. Multi Row SubQuery always returns --> more than one row 
+	- single row & multiple columns
+	- multiple row & single column
+	
+3. Co-Releated Sub Query always have relation with main query.
+
+
+####
+
+CREATE TABLE sales (
+	store_id INT NOT NULL,
+	store_name VARCHAR(255) NOT NULL,
+	product_name VARCHAR(255) NOT NULL,
+	quantity INT NOT NULL,
+	price INT NOT NULL
+);
+
+INSERT INTO sales (store_id, store_name, product_name, quantity, price) VALUES
+(1, 'Apple Store A', 'Iphone 13 Pro', 1, 1000),
+(1, 'Apple Store A', 'Macbook pro 14', 5, 6000),
+(1, 'Apple Store A', 'Airpods Pro', 2, 500),
+(2, 'Apple Store B', 'Iphone 13 Pro', 2, 2000),
+(3, 'Apple Store C', 'Iphone 12 Pro', 1, 750),
+(3, 'Apple Store C', 'Macbook pro 14', 1, 2000);
+(4, 'Apple Store D', 'Macbook M2 Air', 2, 1500);
+(4, 'Apple Store D', 'Iphone 15 Pro', 1, 2500);
+
+
+#####################
+
+CREATE TABLE employee_history (
+	empId INTEGER,
+	empName VARCHAR(30) NOT NULL,
+	deptNname VARCHAR(30) NOT NULL,
+	salary double NOT NULL,
+    location VARCHAR(255) NOT NULL
+);
+
+
+####################
+
+- https://techtfq.com/blog/practice-writing-sql-queries-using-real-dataset
+
+- https://learnsql.com/blog/sql-imdb-dataset/
