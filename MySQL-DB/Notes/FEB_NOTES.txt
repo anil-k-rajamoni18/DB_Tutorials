@@ -362,3 +362,79 @@ INSERT INTO persons_autoinc (LastName, FirstName, Age) VALUES
 ('Choudhary', 'Vivek', 33),
 ('Verma', 'Priya', 29),
 ('Yadav', 'Sneha', 31);
+
+
+
+#### MAY NOTES ########
+
+Display max salaries dept wise 
+Display max salaries location wise 
+Display max salaries salaryGrade
+Display employee who is having max salary among all employees
+Display employee who is having max salary in each department
+
+CREATE TABLE employees (
+	empId INT PRIMARY KEY, 
+	empName VARCHAR(255) NOT NULL,
+	empDeptName VARCHAR(255) NOT NULL,
+	empEmail VARCHAR(255) UNIQUE NOT NULL,
+	empManager VARCHAR(255) NOT NULL,
+	location VARCHAR(255) NOT NULL ,
+	salaryGrade INT NOT NULL,
+	salary DECIMAL NOT NULL
+);
+
+INSERT INTO employees (empId, empName, empDeptName, empEmail, empManager, location, salaryGrade, salary)
+VALUES 
+(1, 'John Doe', 'Engineering', 'john.doe@example.com', 'Jane Smith', 'New York', 5, 85000.00),
+(2, 'Alice Johnson', 'Marketing', 'alice.johnson@example.com', 'Robert Brown', 'San Francisco', 4, 75000.00),
+(3, 'David Lee', 'Sales', 'david.lee@example.com', 'Maria Garcia', 'Chicago', 3, 65000.00),
+(4, 'Emma Wilson', 'Engineering', 'emma.wilson@example.com', 'Jane Smith', 'New York', 5, 90000.00),
+(5, 'Michael Brown', 'Human Resources', 'michael.brown@example.com', 'Sarah Davis', 'Boston', 2, 55000.00),
+(6, 'Linda Martinez', 'Finance', 'linda.martinez@example.com', 'Charles Harris', 'Dallas', 4, 72000.00),
+(7, 'James Anderson', 'Engineering', 'james.anderson@example.com', 'Jane Smith', 'New York', 5, 87000.00),
+(8, 'Patricia Thomas', 'IT', 'patricia.thomas@example.com', 'Susan Walker', 'San Francisco', 4, 78000.00),
+(9, 'Barbara Jackson', 'Customer Support', 'barbara.jackson@example.com', 'James White', 'Los Angeles', 3, 62000.00),
+(10, 'Steven Martin', 'Product Management', 'steven.martin@example.com', 'Betty Moore', 'Seattle', 4, 76000.00);
+INSERT INTO employees (empId, empName, empDeptName, empEmail, empManager, location, salaryGrade, salary)
+VALUES 
+(11, 'Nancy Clark', 'Engineering', 'nancy.clark@example.com', 'Jane Smith', 'New York', 5, 88000.00),
+(12, 'George Hall', 'Marketing', 'george.hall@example.com', 'Robert Brown', 'San Francisco', 4, 77000.00),
+(13, 'Dorothy Lewis', 'Sales', 'dorothy.lewis@example.com', 'Maria Garcia', 'Chicago', 3, 64000.00),
+(14, 'Paul Young', 'Engineering', 'paul.young@example.com', 'Jane Smith', 'New York', 5, 93000.00),
+(15, 'Sandra King', 'Human Resources', 'sandra.king@example.com', 'Sarah Davis', 'Boston', 2, 56000.00),
+(16, 'Steven Wright', 'Finance', 'steven.wright@example.com', 'Charles Harris', 'Dallas', 4, 74000.00),
+(17, 'Karen Lopez', 'Engineering', 'karen.lopez@example.com', 'Jane Smith', 'New York', 5, 89000.00),
+(18, 'Betty Hill', 'IT', 'betty.hill@example.com', 'Susan Walker', 'San Francisco', 4, 79000.00),
+(19, 'Helen Scott', 'Customer Support', 'helen.scott@example.com', 'James White', 'Los Angeles', 3, 63000.00),
+(20, 'Kevin Green', 'Product Management', 'kevin.green@example.com', 'Betty Moore', 'Seattle', 4, 78000.00),
+(21, 'Brian Adams', 'Engineering', 'brian.adams@example.com', 'Jane Smith', 'New York', 5, 86000.00),
+(22, 'Megan Baker', 'Marketing', 'megan.baker@example.com', 'Robert Brown', 'San Francisco', 4, 75000.00),
+(23, 'Ruth Gonzalez', 'Sales', 'ruth.gonzalez@example.com', 'Maria Garcia', 'Chicago', 3, 67000.00),
+(24, 'Anthony Nelson', 'Engineering', 'anthony.nelson@example.com', 'Jane Smith', 'New York', 5, 91000.00),
+(25, 'Donna Carter', 'Human Resources', 'donna.carter@example.com', 'Sarah Davis', 'Boston', 2, 54000.00),
+(26, 'Jason Mitchell', 'Finance', 'jason.mitchell@example.com', 'Charles Harris', 'Dallas', 4, 73000.00),
+(27, 'Sharon Perez', 'Engineering', 'sharon.perez@example.com', 'Jane Smith', 'New York', 5, 92000.00),
+(28, 'Carol Roberts', 'IT', 'carol.roberts@example.com', 'Susan Walker', 'San Francisco', 4, 80000.00),
+(29, 'Larry Turner', 'Customer Support', 'larry.turner@example.com', 'James White', 'Los Angeles', 3, 61000.00),
+(30, 'Frank Phillips', 'Product Management', 'frank.phillips@example.com', 'Betty Moore', 'Seattle', 4, 77000.00),
+(31, 'Eric Campbell', 'Engineering', 'eric.campbell@example.com', 'Jane Smith', 'New York', 5, 85000.00),
+(32, 'Amy Parker', 'Marketing', 'amy.parker@example.com', 'Robert Brown', 'San Francisco', 4, 76000.00),
+(33, 'Christina Evans', 'Sales', 'christina.evans@example.com', 'Maria Garcia', 'Chicago', 3, 68000.00),
+(34, 'Gary Edwards', 'Engineering', 'gary.edwards@example.com', 'Jane Smith', 'New York', 5, 94000.00),
+(35, 'Kathleen Collins', 'Human Resources', 'kathleen.collins@example.com', 'Sarah Davis', 'Boston', 2, 57000.00),
+(36, 'Matthew Stewart', 'Finance', 'matthew.stewart@example.com', 'Charles Harris', 'Dallas', 4, 71000.00),
+(37, 'Deborah Sanchez', 'Engineering', 'deborah.sanchez@example.com', 'Jane Smith', 'New York', 5, 90000.00),
+(38, 'Jessica Morris', 'IT', 'jessica.morris@example.com', 'Susan Walker', 'San Francisco', 4, 82000.00),
+(39, 'Joshua Rogers', 'Customer Support', 'joshua.rogers@example.com', 'James White', 'Los Angeles', 3, 65000.00),
+(40, 'Mark Reed', 'Product Management', 'mark.reed@example.com', 'Betty Moore', 'Seattle', 4, 76000.00),
+(41, 'Evelyn Cook', 'Engineering', 'evelyn.cook@example.com', 'Jane Smith', 'New York', 5, 93000.00),
+(42, 'Dennis Morgan', 'Marketing', 'dennis.morgan@example.com', 'Robert Brown', 'San Francisco', 4, 74000.00),
+(43, 'Teresa Bell', 'Sales', 'teresa.bell@example.com', 'Maria Garcia', 'Chicago', 3, 67000.00),
+(44, 'Jose Murphy', 'Engineering', 'jose.murphy@example.com', 'Jane Smith', 'New York', 5, 91000.00),
+(45, 'Cynthia Bailey', 'Human Resources', 'cynthia.bailey@example.com', 'Sarah Davis', 'Boston', 2, 55000.00),
+(46, 'Patrick Rivera', 'Finance', 'patrick.rivera@example.com', 'Charles Harris', 'Dallas', 4, 75000.00),
+(47, 'Elizabeth Cooper', 'Engineering', 'elizabeth.cooper@example.com', 'Jane Smith', 'New York', 5, 87000.00),
+(48, 'Larry Richardson', 'IT', 'larry.richardson@example.com', 'Susan Walker', 'San Francisco', 4, 80000.00),
+(49, 'Kimberly Cox', 'Customer Support', 'kimberly.cox@example.com', 'James White', 'Los Angeles', 3, 62000.00),
+(50, 'Ryan Howard', 'Product Management', 'ryan.howard@example.com', 'Betty Moore', 'Seattle', 4, 78000.00);

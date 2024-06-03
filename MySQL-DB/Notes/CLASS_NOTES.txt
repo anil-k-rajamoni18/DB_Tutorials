@@ -549,7 +549,7 @@ CREATE TABLE emp_t(
 	GENDER CHAR(1) NOT NULL,
 	DEPT_NAME VARCHAR(50) NOT NULL,
 	AGE INT NOT NULL,
-	CITY VARCHAR(10) NOT NULL,
+	CITY VARCHAR(255) NOT NULL,
 	SALARY DOUBLE NOT NULL
 );
 
@@ -602,6 +602,7 @@ QUESTIONS:
 	- filter the empolyees based on input from first query 
 	
 
+
 ANSWERS 
 -------------
 1. SELECT name,dept_name,salary FROM emp_t;
@@ -642,7 +643,7 @@ CREATE TABLE managers(
 	workExperience TINYINT NOT NULL,
 	PRIMARY KEY(managerId)
 );
-CREATE TABLE employees (
+CREATE TABLE employees_t (
 	empId INTEGER,
 	empName VARCHAR(30) NOT NULL,
 	jobName VARCHAR(30) NOT NULL,
@@ -672,7 +673,7 @@ INSERT INTO managers(managerId, name, location, workExperience) VALUES
 (104, 'Alice Williams', 'Chennai', 6);
 
 -- Insert data into the 'employees' table
-INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+INSERT INTO employees_t(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
 (1001, 'Mike Anderson', 'Sales Executive', '2023-01-15', '1990-05-20', 50000.00, 1, 101),
 (1002, 'Lisa Patel', 'Financial Analyst', '2022-08-22', '1985-12-10', 60000.00, 2, 102),
 (1003, 'Raj Kumar', 'Software Engineer', '2021-05-10', '1995-03-25', 75000.00, 3, 103),
@@ -695,7 +696,7 @@ INSERT INTO managers(managerId, name, location, workExperience) VALUES
 (108, 'Sophia Gupta', 'Ahmedabad', 10);
 
 -- Insert more data into the 'employees' table
-INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+INSERT INTO employees_t(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
 (1006, 'Priya Sharma', 'Marketing Specialist', '2022-04-18', '1992-08-05', 58000.00, 5, 105),
 (1007, 'Rahul Kapoor', 'R&D Scientist', '2021-09-25', '1993-11-15', 70000.00, 6, 106),
 (1008, 'Anjali Desai', 'Customer Support Rep', '2023-02-12', '1991-06-30', 52000.00, 7, 107),
@@ -718,7 +719,7 @@ INSERT INTO managers(managerId, name, location, workExperience) VALUES
 (112, 'Rajiv Verma', 'Gurgaon', 11);
 
 -- Insert more data into the 'employees' table
-INSERT INTO employees(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
+INSERT INTO employees_t(empId, empName, jobName, hireDate, dob, salary, depId, managerId) VALUES
 (1011, 'Karan Sharma', 'Legal Advisor', '2022-03-20', '1989-07-18', 67000.00, 9, 109),
 (1012, 'Neha Verma', 'QA Tester', '2021-10-15', '1994-04-12', 54000.00, 10, 110),
 (1013, 'Rakesh Kapoor', 'Security Analyst', '2023-01-28', '1990-12-05', 72000.00, 11, 111),
@@ -1049,3 +1050,86 @@ CREATE TABLE employee_history (
 - https://techtfq.com/blog/practice-writing-sql-queries-using-real-dataset
 
 - https://learnsql.com/blog/sql-imdb-dataset/
+
+
+###### MAY ##########
+JOINS EXAMPLES
+---------------
+
+SELECT
+    m.member_id,
+    m.name AS member,
+    c.committee_id,
+    c.name AS committee
+FROM
+    members m
+INNER JOIN committees c USING(name)
+
+-------------------
+SELECT
+    m.member_id,
+    m.name AS member,
+    c.committee_id,
+    c.name AS committee
+FROM
+    members m
+LEFT JOIN committees c USING(name)
+WHERE c.committee_id IS NULL;
+
+--------------------
+SELECT
+    m.member_id,
+    m.name AS member,
+    c.committee_id,
+    c.name AS committee
+FROM
+    members m
+RIGHT JOIN committees c USING(name)
+---------------------------------
+
+SELECT 
+    t1.orderNumber,
+    t1.status,
+    t2.quantityOrdered,
+	t2.priceEach
+FROM
+    orders t1
+INNER JOIN orderdetails t2 
+    ON t1.orderNumber = t2.orderNumber;
+
+-------------------
+
+
+SELECT 
+    t1.orderNumber,
+    t1.status,
+    SUM(quantityOrdered * priceEach) total
+FROM
+    orders t1
+INNER JOIN orderdetails t2 
+    ON t1.orderNumber = t2.orderNumber
+GROUP BY orderNumber;
+
+-----------------
+
+SELECT
+    c.customerNumber,
+    customerName,
+    orderNumber,
+    status
+FROM
+    customers c
+LEFT JOIN orders o 
+    ON c.customerNumber = o.customerNumber;
+	
+---------------------------
+SELECT
+    c.customerNumber,
+    customerName,
+    orderNumber,
+    status
+FROM
+    customers c
+LEFT JOIN orders o 
+    ON c.customerNumber = o.customerNumber
+WHERE orderNumber IS NULL;

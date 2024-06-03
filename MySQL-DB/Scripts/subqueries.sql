@@ -26,7 +26,7 @@ select avg(salary) from employees;
 
 SELECT *
 FROM   employees
-WHERE  salary >= 60900;  -- hard coding [is not correct]
+WHERE  salary >= 62000;  -- hard coding [is not correct?]
 
 -- using sub-query
 SELECT *
@@ -64,27 +64,27 @@ FROM   employees e1
 
 select * from employees;
 
-SELECT dept_name,
+SELECT deptname,
        max(salary)
 FROM   employees
-GROUP  BY dept_name; 
+GROUP  BY deptname; 
 
 SELECT *
 FROM   employees
-WHERE  ( dept_name, salary ) IN (SELECT dept_name,
+WHERE  ( deptname, salary ) IN (SELECT deptname,
                                         max(salary)
                                  FROM   employees
-                                 GROUP  BY dept_name);  
+                                 GROUP  BY deptname);  
             
 -- single column & multiple rows
 -- QUESTION: Find Department which doesn't have any employees
 
-SELECT DISTINCT dept_name FROM employees;
-SELECT DISTINCT dept_name FROM department;
+SELECT DISTINCT deptname FROM employees;
+SELECT DISTINCT deptname FROM department;
 
 SELECT *
 FROM   department
-WHERE  dept_name NOT IN (SELECT DISTINCT dept_name
+WHERE  deptname NOT IN (SELECT DISTINCT deptname
                          FROM   employees);  
 
 -- ############################################################################################ --------------
@@ -101,21 +101,22 @@ WHERE  dept_name NOT IN (SELECT DISTINCT dept_name
 -- QUESTION:  Find the employees in each department who earns more than the average salary in that department?
 SELECT Avg(salary)
 FROM   employees
-WHERE  dept_name = "IT";
+WHERE  deptname = "IT";
 
 SELECT *
 FROM   employees
 WHERE  salary > (SELECT avg(salary)
                  FROM   employees
-                -- where dept_name = "specific_dept_name"
-                );  
+                 where deptname = "IT"
+                )
+		AND deptName = "IT";
 
                 
 SELECT *
 FROM   employees e1
 WHERE  salary > (SELECT avg(salary)
                  FROM   employees e2
-                 WHERE  ie2.dept_name = e1.dept_name);  
+                 WHERE  e2.deptname = e1.deptname);  
 
 -- using JOIN 
 select dept_name, avg(salary) as avgsal from employees group by dept_name;
