@@ -214,8 +214,8 @@ SELECT *,
        ( CASE
            WHEN salary > (SELECT avg(salary)
                           FROM   employees) THEN 'Higher than avg'
-           ELSE NULL
-         end ) AS remarks
+           ELSE 'Less Then Avg'
+         END ) AS remarks
 FROM   employees; 
 
 -- using JOIN 
@@ -245,25 +245,28 @@ FROM employees;
 
 
 -- HAVING 
-/*QUESTION: Find the employees who have sold more units than average units sold by all stores */
+/*QUESTION: Find the store who have sold more units than average units sold by all stores */
+SHOW TABLES;
+
+SELECT * FROM SALES;
 
 -- total units 
 SELECT store_name,
-		sum(quantity)
+		sum(quantity*price)
  FROM sales
  GROUP BY store_name;
  
  -- average units 
- SELECT avg(quantity) 
+ SELECT avg(quantity*price) 
  FROM sales;
 
 -- combine two queries
 SELECT store_name,
-       sum(quantity) AS total_sales
+       sum(quantity*price) AS total_sales
 FROM   sales
 GROUP  BY store_name
-HAVING total_sales > (SELECT avg(quantity)
-                      FROM   sales);  
+HAVING total_sales > (SELECT avg(quantity*price) 
+ FROM sales);  
  
 
 ################################################
@@ -381,3 +384,17 @@ CREATE TABLE title_basics(
 
 show tables;
 
+SELECT * FROM employees where deptname = "Sales";
+SELECT *, increase_salary(salary, 10) as incremented_sal FROM employees WHERE deptName = "SALES"; 
+
+SHOW INDEXES FROM employees;
+select * FROM employees;
+
+CREATE INDEX empName_idx ON employees(empName);
+CREATE INDEX empId_jobName_idx ON employees(empId,jobName);
+
+
+
+-- Stored Procedure
+SELECT AVG(SALARY) FROM EMPLOYEES;
+SELECT * FROM EMPLOYEES WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES) AND DEPTNAME = "Research and Development";
